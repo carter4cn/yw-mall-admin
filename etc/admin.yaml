@@ -1,0 +1,67 @@
+Name: mall-admin-api
+Host: 0.0.0.0
+Port: 18999
+
+Auth:
+  AccessSecret: "mall-admin-secret-change-in-production"
+  AccessExpire: 86400
+
+UserRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/user-rpc
+
+ShopRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/shop-rpc
+
+ProductRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/product-rpc
+
+OrderRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/order-rpc
+
+ReviewRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/review-rpc
+
+RiskRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/risk-rpc
+
+RuleRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/rule-rpc
+
+PaymentRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/payment-rpc
+
+ActivityRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/activity-rpc
+
+LogisticsRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: yw-mall/logistics-rpc
