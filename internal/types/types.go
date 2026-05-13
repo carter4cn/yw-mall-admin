@@ -912,3 +912,56 @@ type ListSensitiveWordsResp struct {
 	Total int64                `json:"total"`
 	Words []*SensitiveWordInfo `json:"words"`
 }
+
+// ===== S2 Refund =====
+type RefundItemDTO struct {
+	SkuId    int64  `json:"skuId"`
+	SkuName  string `json:"skuName"`
+	Quantity int32  `json:"quantity"`
+	Amount   int64  `json:"amount"`
+}
+
+type RefundInfo struct {
+	Id                 int64           `json:"id"`
+	OrderId            int64           `json:"orderId"`
+	OrderNo            string          `json:"orderNo"`
+	UserId             int64           `json:"userId"`
+	ShopId             int64           `json:"shopId"`
+	Amount             int64           `json:"amount"`
+	Reason             string          `json:"reason"`
+	Evidence           []string        `json:"evidence"`
+	Items              []RefundItemDTO `json:"items"`
+	Status             int32           `json:"status"`
+	MerchantUserId     int64           `json:"merchantUserId"`
+	MerchantRemark     string          `json:"merchantRemark"`
+	MerchantHandleTime int64           `json:"merchantHandleTime"`
+	AdminId            int64           `json:"adminId"`
+	AdminRemark        string          `json:"adminRemark"`
+	AdminHandleTime    int64           `json:"adminHandleTime"`
+	AppealReason       string          `json:"appealReason"`
+	AppealTime         int64           `json:"appealTime"`
+	RefundNo           string          `json:"refundNo"`
+	RefundCompleteTime int64           `json:"refundCompleteTime"`
+	CreateTime         int64           `json:"createTime"`
+}
+
+type ListRefundsReq struct {
+	Status   int32 `form:"status,default=-1"`
+	Page     int32 `form:"page,default=1"`
+	PageSize int32 `form:"pageSize,default=20"`
+}
+
+type ListRefundsResp struct {
+	Total    int64         `json:"total"`
+	Requests []*RefundInfo `json:"requests"`
+}
+
+type ArbitrateRefundReq struct {
+	Action int32  `json:"action"` // 1=force_refund 2=final_reject
+	Remark string `json:"remark,omitempty"`
+}
+
+type MerchantHandleRefundReq struct {
+	Action int32  `json:"action"` // 1=approve 2=reject
+	Remark string `json:"remark,omitempty"`
+}

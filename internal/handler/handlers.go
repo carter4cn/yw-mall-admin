@@ -1260,3 +1260,71 @@ func deleteSensitiveWordHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		writeOk(r, w, resp)
 	}
 }
+
+// ================ S2 Refund (admin + merchant) ================
+
+func listPendingArbitrationsHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.ListRefundsReq
+		if err := httpx.Parse(r, &req); err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		resp, err := logic.ListPendingArbitrations(r.Context(), svcCtx, &req)
+		if err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		writeOk(r, w, resp)
+	}
+}
+
+func arbitrateRefundHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		id, _ := parseId(r)
+		var req types.ArbitrateRefundReq
+		if err := httpx.Parse(r, &req); err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		resp, err := logic.ArbitrateRefund(r.Context(), svcCtx, id, &req)
+		if err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		writeOk(r, w, resp)
+	}
+}
+
+func listShopRefundsHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.ListRefundsReq
+		if err := httpx.Parse(r, &req); err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		resp, err := logic.ListShopRefunds(r.Context(), svcCtx, &req)
+		if err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		writeOk(r, w, resp)
+	}
+}
+
+func merchantHandleRefundHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		id, _ := parseId(r)
+		var req types.MerchantHandleRefundReq
+		if err := httpx.Parse(r, &req); err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		resp, err := logic.MerchantHandleRefund(r.Context(), svcCtx, id, &req)
+		if err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		writeOk(r, w, resp)
+	}
+}

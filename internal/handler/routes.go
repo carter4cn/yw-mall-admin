@@ -79,6 +79,10 @@ func RegisterHandlers(server *rest.Server, svcCtx *svc.ServiceContext) {
 				{Method: http.MethodPost, Path: "/sensitive-words", Handler: createSensitiveWordHandler(svcCtx)},
 				{Method: http.MethodGet, Path: "/sensitive-words", Handler: listSensitiveWordsHandler(svcCtx)},
 				{Method: http.MethodDelete, Path: "/sensitive-words/:id", Handler: deleteSensitiveWordHandler(svcCtx)},
+
+				// ----- S2: refund arbitration -----
+				{Method: http.MethodGet, Path: "/refunds/arbitrations", Handler: listPendingArbitrationsHandler(svcCtx)},
+				{Method: http.MethodPost, Path: "/refunds/:id/arbitrate", Handler: arbitrateRefundHandler(svcCtx)},
 			}...,
 		),
 		rest.WithPrefix("/admin/v1"),
@@ -157,6 +161,10 @@ func RegisterHandlers(server *rest.Server, svcCtx *svc.ServiceContext) {
 				{Method: http.MethodGet, Path: "/freight-templates/:id", Handler: getFreightTemplateHandler(svcCtx)},
 				{Method: http.MethodPut, Path: "/freight-templates/:id", Handler: updateFreightTemplateHandler(svcCtx)},
 				{Method: http.MethodDelete, Path: "/freight-templates/:id", Handler: deleteFreightTemplateHandler(svcCtx)},
+
+				// ----- S2: refund (merchant) -----
+				{Method: http.MethodGet, Path: "/refunds", Handler: listShopRefundsHandler(svcCtx)},
+				{Method: http.MethodPost, Path: "/refunds/:id/handle", Handler: merchantHandleRefundHandler(svcCtx)},
 			}...,
 		),
 		rest.WithPrefix("/merchant/v1"),
