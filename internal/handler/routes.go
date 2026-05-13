@@ -83,6 +83,11 @@ func RegisterHandlers(server *rest.Server, svcCtx *svc.ServiceContext) {
 				// ----- S2: refund arbitration -----
 				{Method: http.MethodGet, Path: "/refunds/arbitrations", Handler: listPendingArbitrationsHandler(svcCtx)},
 				{Method: http.MethodPost, Path: "/refunds/:id/arbitrate", Handler: arbitrateRefundHandler(svcCtx)},
+
+				// ----- S3: account ledger -----
+				{Method: http.MethodGet, Path: "/ledger", Handler: listLedgerHandler(svcCtx)},
+				{Method: http.MethodGet, Path: "/ledger/summary", Handler: getLedgerSummaryHandler(svcCtx)},
+				{Method: http.MethodPost, Path: "/ledger/reconcile", Handler: runReconcileHandler(svcCtx)},
 			}...,
 		),
 		rest.WithPrefix("/admin/v1"),

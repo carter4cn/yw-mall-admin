@@ -1328,3 +1328,53 @@ func merchantHandleRefundHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		writeOk(r, w, resp)
 	}
 }
+
+// ================ S3 Account ledger (admin) ================
+
+func listLedgerHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.ListLedgerReq
+		if err := httpx.Parse(r, &req); err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		resp, err := logic.ListLedger(r.Context(), svcCtx, &req)
+		if err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		writeOk(r, w, resp)
+	}
+}
+
+func getLedgerSummaryHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.GetLedgerSummaryReq
+		if err := httpx.Parse(r, &req); err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		resp, err := logic.GetLedgerSummary(r.Context(), svcCtx, &req)
+		if err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		writeOk(r, w, resp)
+	}
+}
+
+func runReconcileHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.RunReconcileReq
+		if err := httpx.Parse(r, &req); err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		resp, err := logic.RunReconcile(r.Context(), svcCtx, &req)
+		if err != nil {
+			writeErr(r, w, err)
+			return
+		}
+		writeOk(r, w, resp)
+	}
+}

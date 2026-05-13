@@ -965,3 +965,70 @@ type MerchantHandleRefundReq struct {
 	Action int32  `json:"action"` // 1=approve 2=reject
 	Remark string `json:"remark,omitempty"`
 }
+
+// ===== S3 account ledger =====
+
+type LedgerEntryDTO struct {
+	Id             int64  `json:"id"`
+	ShopId         int64  `json:"shopId"`
+	Direction      int32  `json:"direction"`
+	Category       string `json:"category"`
+	Amount         int64  `json:"amount"`
+	RunningBalance int64  `json:"runningBalance"`
+	OrderId        int64  `json:"orderId"`
+	RefundId       int64  `json:"refundId"`
+	RefNo          string `json:"refNo"`
+	Description    string `json:"description"`
+	CreateTime     int64  `json:"createTime"`
+}
+
+type ListLedgerReq struct {
+	ShopId    int64  `form:"shopId,optional"`
+	Category  string `form:"category,optional"`
+	StartTime int64  `form:"startTime,optional"`
+	EndTime   int64  `form:"endTime,optional"`
+	Page      int32  `form:"page,default=1"`
+	PageSize  int32  `form:"pageSize,default=20"`
+}
+
+type ListLedgerResp struct {
+	Entries []LedgerEntryDTO `json:"entries"`
+	Total   int64            `json:"total"`
+}
+
+type GetLedgerSummaryReq struct {
+	ShopId    int64 `form:"shopId,optional"`
+	StartTime int64 `form:"startTime,optional"`
+	EndTime   int64 `form:"endTime,optional"`
+}
+
+type LedgerSummaryDTO struct {
+	TotalIncome     int64 `json:"totalIncome"`
+	TotalRefund     int64 `json:"totalRefund"`
+	TotalCommission int64 `json:"totalCommission"`
+	TotalWithdrawal int64 `json:"totalWithdrawal"`
+	NetBalance      int64 `json:"netBalance"`
+}
+
+type RunReconcileReq struct {
+	ShopId int64 `json:"shopId,optional"`
+}
+
+type ShopReconcileResultDTO struct {
+	ShopId        int64 `json:"shopId"`
+	LedgerCredit  int64 `json:"ledgerCredit"`
+	LedgerDebit   int64 `json:"ledgerDebit"`
+	LedgerNet     int64 `json:"ledgerNet"`
+	WalletBalance int64 `json:"walletBalance"`
+	WalletFrozen  int64 `json:"walletFrozen"`
+	WalletTotal   int64 `json:"walletTotal"`
+	Diff          int64 `json:"diff"`
+	Passed        bool  `json:"passed"`
+}
+
+type ReconcileReportDTO struct {
+	TotalChecked int32                    `json:"totalChecked"`
+	Passed       int32                    `json:"passed"`
+	Failed       int32                    `json:"failed"`
+	Results      []ShopReconcileResultDTO `json:"results"`
+}
