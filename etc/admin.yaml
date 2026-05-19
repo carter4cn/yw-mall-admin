@@ -65,3 +65,9 @@ LogisticsRpc:
     Hosts:
       - 127.0.0.1:2379
     Key: yw-mall/logistics-rpc
+
+# ===== Sprint 5 预埋：env 已起 PG HA + Mongo RS，业务还没用 =====
+# 详见 mall-api yaml 尾部说明。admin 侧预期用 PG 做审计/数据归档。
+#
+# Postgres (通过 PgBouncer):
+#   DSN: "postgres://app_rw:apprw123@127.0.0.1:5432/mall?sslmode=disable"
